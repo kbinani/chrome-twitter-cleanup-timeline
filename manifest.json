@@ -1,14 +1,16 @@
 {
-	"name": "Auto mute promotion accounts",
-	"version": "0.0.0",
-	"manifest_version": 2,
-	"description": "Auto mute promotion accounts",
-	"content_scripts": [
-		{
-			"matches": [
-				"https://x.com/*"
-			],
-			"js": ["main.js"]
-		}
-	]
+  "name": "Auto hide promotion tweets",
+  "version": "0.0.0",
+  "manifest_version": 2,
+  "description": "Auto hide promotion tweets",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://x.com/*"
+      ],
+      "js": [
+        "main.js"
+      ]
+    }
+  ]
 }
