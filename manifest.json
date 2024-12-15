@@ -1,8 +1,8 @@
 {
-  "name": "Auto hide promotion tweets",
+  "name": "Hide disturbing tweets",
   "version": "0.0.0",
   "manifest_version": 2,
-  "description": "Auto hide promotion tweets",
+  "description": "Hide disturbing tweets (promotion, grok, etc.)",
   "content_scripts": [
     {
       "matches": [
