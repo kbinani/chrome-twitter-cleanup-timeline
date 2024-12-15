@@ -2,11 +2,19 @@ const id = (() => {
   return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
 })();
 
-const hide = (article) => {
-  article.style.visibility = "hidden";
-  article.style.height = 0;
-  article.style.width = 0;
-  article.setAttribute(`data-${id}-hidden`, "true");
+const hide_article_containing = (element) => {
+  let pivot = element;
+  while (pivot) {
+    if (pivot.tagName.toLowerCase() === "article") {
+      const article = pivot;
+      article.style.visibility = "hidden";
+      article.style.height = 0;
+      article.style.width = 0;
+      article.setAttribute(`data-${id}-hidden`, "true");
+      return;
+    }
+    pivot = pivot.parentElement;
+  }
 };
 
 const remove_promotion_tweets = async () => {
@@ -15,14 +23,7 @@ const remove_promotion_tweets = async () => {
     if (span.innerText !== "プロモーション" && !span.innerText.endsWith("によるプロモーション")) {
       continue;
     }
-    let pivot = span;
-    while (pivot) {
-      if (pivot.tagName.toLowerCase() === "article") {
-        hide(pivot);
-        break;
-      }
-      pivot = pivot.parentElement;
-    }
+    hide_article_containing(span);
   }
 };
 
@@ -36,14 +37,7 @@ const remove_grok_tweets = async () => {
     if (!href.startsWith("https://x.com/i/grok/")) {
       continue;
     }
-    let pivot = anchor;
-    while (pivot) {
-      if (pivot.tagName.toLowerCase() === "article") {
-        hide(pivot);
-        break;
-      }
-      pivot = pivot.parentElement;
-    }
+    hide_article_containing(anchor);
   }
 };
 
