@@ -2,15 +2,20 @@ const id = (() => {
   return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
 })();
 
+const hide = (element) => {
+  element.style.visibility = "hidden";
+  element.style.width = 0;
+  element.style.height = 0;
+  element.style.padding = 0;
+  element.setAttribute(`data-${id}-hidden`, "true");
+};
+
 const hide_article_containing = (element) => {
   let pivot = element;
   while (pivot) {
     if (pivot.tagName.toLowerCase() === "article") {
       const article = pivot;
-      article.style.visibility = "hidden";
-      article.style.height = 0;
-      article.style.width = 0;
-      article.setAttribute(`data-${id}-hidden`, "true");
+      hide(article);
       return;
     }
     pivot = pivot.parentElement;
@@ -41,9 +46,29 @@ const remove_grok_tweets = async () => {
   }
 };
 
+const remove_grok_menu = async () => {
+  const anchor = document.querySelector(`a[href="/i/grok"][aria-label="Grok"]:not([data-${id}-hidden="true"])`);
+  if (anchor) {
+    hide(anchor);
+  }
+  const grokDrawer = document.querySelector(`div[data-testid="GrokDrawer"]:not([data-${id}-hidden="true"])`);
+  if (grokDrawer) {
+    hide(grokDrawer);
+  }
+  const grokImgGen = document.querySelector(`div:not([data-${id}-hidden="true"]) > button[data-testid="grokImgGen"]`);
+  if (grokImgGen) {
+    hide(grokImgGen.parentElement);
+  }
+  const grokProfile = document.querySelector(`button:not([data-${id}-hidden="true"])[aria-label="プロフィールの要約"]`);
+  if (grokProfile) {
+    hide(grokProfile);
+  }
+};
+
 const unsafe = async () => {
   await remove_promotion_tweets();
   await remove_grok_tweets();
+  await remove_grok_menu();
 };
 
 let active = false;
