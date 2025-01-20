@@ -63,6 +63,19 @@ const remove_grok_menu = async () => {
   if (grokProfile) {
     hide(grokProfile);
   }
+  const spans = document.getElementsByTagName("span");
+  for (const span of spans) {
+    if (span.innerText === "Grokによる要約") {
+      let p = span;
+      for (let i = 0; i < 4 && p; i++) {
+        p = p.parentElement;
+      }
+      if (p) {
+        hide(p);
+      }
+      break;
+    }
+  }
 };
 
 const unsafe = async () => {
