@@ -3,6 +3,7 @@ const id = (() => {
 })();
 
 const hide = (element) => {
+  // console.log(element);
   element.style.visibility = "hidden";
   element.style.width = 0;
   element.style.height = 0;
@@ -78,10 +79,25 @@ const remove_grok_menu = async () => {
   }
 };
 
+const remove_promotions = async () => {
+  const business = document.querySelector(`a[href="/i/verified-orgs-signup"][aria-label="ビジネス"]:not([data-${id}-hidden="true"])`);
+  if (business) {
+    hide(business);
+  }
+  const renew = document.querySelector(`aside[aria-label="プレミアムサブスクリプションを更新"][role="complementary"]`);
+  if (renew) {
+    const container = renew.parentElement;
+    if (container) {
+      container.remove();
+    }
+  }
+};
+
 const unsafe = async () => {
   await remove_promotion_tweets();
   await remove_grok_tweets();
   await remove_grok_menu();
+  await remove_promotions();
 };
 
 let active = false;
