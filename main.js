@@ -88,7 +88,7 @@ const remove_promotions = async () => {
   if (renew) {
     const container = renew.parentElement;
     if (container) {
-      container.remove();
+      hide(container);
     }
   }
 };
@@ -102,7 +102,7 @@ const unsafe = async () => {
 
 let active = false;
 
-const tick = () => {
+const action = () => {
   if (active) {
     return;
   }
@@ -112,4 +112,7 @@ const tick = () => {
   });
 };
 
-setInterval(tick, 100);
+const observer = new MutationObserver(() => {
+  action();
+});
+observer.observe(document.body, { childList: true, subtree: true });
