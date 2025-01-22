@@ -106,6 +106,10 @@ const remove_promotions = async () => {
       hide(p2);
     }
   }
+  const jobs = document.querySelector(`a[href="/jobs"][role="link"]:not([data-${id}-hidden="true"])`);
+  if (jobs) {
+    hide(jobs);
+  }
 };
 
 const unsafe = async () => {
