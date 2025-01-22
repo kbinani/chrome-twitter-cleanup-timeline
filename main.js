@@ -23,6 +23,14 @@ const hide_article_containing = (element) => {
   }
 };
 
+const up = (element, levels) => {
+  let p = element;
+  for (let i = 0; i < levels && p; i++) {
+    p = p.parentElement;
+  }
+  return p;
+}
+
 const remove_promotion_tweets = async () => {
   const spans = document.querySelectorAll(`article:not([data-${id}-hidden="true"]) span`);
   for (const span of spans) {
@@ -89,6 +97,13 @@ const remove_promotions = async () => {
     const container = renew.parentElement;
     if (container) {
       hide(container);
+    }
+  }
+  const subscribeLabel = document.querySelector(`aside[aria-label="プレミアムにサブスクライブ"]`);
+  if (subscribeLabel) {
+    const p2 = up(subscribeLabel, 2);
+    if (p2) {
+      hide(p2);
     }
   }
 };
