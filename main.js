@@ -60,9 +60,12 @@ const remove_grok_menu = async () => {
   if (anchor) {
     hide(anchor);
   }
-  const grokDrawer = document.querySelector(`div[data-testid="GrokDrawer"]:not([data-${id}-hidden="true"])`);
+  const grokDrawer = document.querySelector(`div[data-testid="GrokDrawer"]`);
   if (grokDrawer) {
-    hide(grokDrawer);
+    const p = up(grokDrawer, 2);
+    if (p) {
+      hide(p);
+    }
   }
   const grokImgGen = document.querySelector(`div:not([data-${id}-hidden="true"]) > button[data-testid="grokImgGen"]`);
   if (grokImgGen) {
@@ -75,14 +78,18 @@ const remove_grok_menu = async () => {
   const spans = document.getElementsByTagName("span");
   for (const span of spans) {
     if (span.innerText === "Grokによる要約") {
-      let p = span;
-      for (let i = 0; i < 4 && p; i++) {
-        p = p.parentElement;
-      }
+      const p = up(span, 4);
       if (p) {
         hide(p);
       }
       break;
+    }
+  }
+  const grokAction = document.querySelector(`div:not([data-${id}-hidden="true"]) > button[aria-label="Grokのアクション"]`);
+  if (grokAction) {
+    const p = up(grokAction, 1);
+    if (p) {
+      hide(p);
     }
   }
 };
